@@ -1,25 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-async function fetchIp() {
-  const response = await fetch('https://api.ipify.org?format=json');
+async function fetchIpInfo() {
+  const response = await fetch('https://ipinfo.io/?token=1ef03f73d5883c');
   const data = await response.json();
-  return data.ip;
+  return data;
 }
 
 function App() {
-  const [ip, setIp] = useState(null);
+  const [ipInfo, setIpInfo] = useState(null);
 
   useEffect(() => {
-    fetchIp().then((ip) => setIp(ip));
-  }, []); // Leerer Array als Abhängigkeit, um sicherzustellen, dass die useEffect-Funktion nur einmal ausgeführt wird
+    fetchIpInfo().then((data) => setIpInfo(data));
+  }, []);
 
   return (
     <>
       <div className="card">
-        <h1>
-          IP-Adresse: {ip}
-        </h1>
+        {ipInfo ? (
+          <>
+            <h1>IP-Adresse: {ipInfo.ip}</h1>
+            <p>Hostname: {ipInfo.hostname}</p>
+            <p>Stadt: {ipInfo.city}</p>
+            <p>Region: {ipInfo.region}</p>
+            <p>Land: {ipInfo.country}</p>
+            <p>Geographische Koordinaten: {ipInfo.loc}</p>
+            <p>Organisation: {ipInfo.org}</p>
+            <p>Postleitzahl: {ipInfo.postal}</p>
+            <p>Zeitzone: {ipInfo.timezone}</p>
+          </>
+        ) : (
+          <p>Lade IP-Informationen...</p>
+        )}
       </div>
     </>
   );
