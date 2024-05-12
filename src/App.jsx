@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 
 async function fetchIpInfo() {
   const response = await fetch('https://ipinfo.io/?token=1ef03f73d5883c');
   const data = await response.json();
   return data;
+}
+
+function GoogleMap({ width, length }) {
+  const ApiKey = "AIzaSyBwNy3KE4jwgRHGwqJgjkhx1bSyPsWp_es";
+  const src = `https://www.google.com/maps/embed/v1/view?key=${ApiKey}&center=${width},${length}&zoom=15`;
+  
+  return (
+    <iframe src={src} width="600" height="450" style={{ border: 0, backgroundColor: 'black'}} allowFullScreen="" loading="lazy"></iframe>
+  );
 }
 
 function App() {
@@ -17,21 +25,26 @@ function App() {
   return (
     <>
       <div className="card">
+        {}
         {ipInfo ? (
           <>
-            <h1>IP-Adresse: {ipInfo.ip}</h1>
+            <h1>IP Address: {ipInfo.ip}</h1>
             <p>Hostname: {ipInfo.hostname}</p>
-            <p>Stadt: {ipInfo.city}</p>
+            <p>City: {ipInfo.city}</p>
             <p>Region: {ipInfo.region}</p>
-            <p>Land: {ipInfo.country}</p>
-            <p>Geographische Koordinaten: {ipInfo.loc}</p>
-            <p>Organisation: {ipInfo.org}</p>
-            <p>Postleitzahl: {ipInfo.postal}</p>
-            <p>Zeitzone: {ipInfo.timezone}</p>
+            <p>Country: {ipInfo.country}</p>
+            <p>Geographical Coordinates: {ipInfo.loc}</p>
+            <p>Organization: {ipInfo.org}</p>
+            <p>Postal Code: {ipInfo.postal}</p>
+            <p>Timezone: {ipInfo.timezone}</p>
           </>
         ) : (
-          <p>Lade IP-Informationen...</p>
+          <p>Loading IP information...</p>
         )}
+      </div>
+      <div>
+        {}
+        {ipInfo && <GoogleMap width={ipInfo.loc.split(',')[0]} length={ipInfo.loc.split(',')[1]} />}
       </div>
     </>
   );
