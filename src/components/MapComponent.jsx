@@ -20,7 +20,7 @@ function MapComponent({ width, length }) {
   };
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyBwNy3KE4jwgRHGwqJgjkhx1bSyPsWp_es">
+    <LoadScript googleMapsApiKey="YOUR-API-KEY">
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}

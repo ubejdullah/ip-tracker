@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MapComponent from './components/MapComponent';
 
 async function fetchIpInfo(ip = '') {
-  const response = await fetch(`https://ipinfo.io/${ip}?token=1ef03f73d5883c`);
+  const response = await fetch(`https://ipinfo.io/${ip}?token=YOUR-API-KEY`);
   const data = await response.json();
   return data;
 }
