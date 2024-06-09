@@ -9,9 +9,9 @@ async function fetchIpInfo() {
 function GoogleMap({ width, length }) {
   const ApiKey = "AIzaSyBwNy3KE4jwgRHGwqJgjkhx1bSyPsWp_es";
   const src = `https://www.google.com/maps/embed/v1/view?key=${ApiKey}&center=${width},${length}&zoom=15`;
-  
+
   return (
-    <iframe src={src} width="600" height="450" style={{ border: 0, backgroundColor: 'black'}} allowFullScreen="" loading="lazy"></iframe>
+    <iframe src={src} allowFullScreen="" loading="lazy"></iframe>
   );
 }
 
@@ -24,27 +24,26 @@ function App() {
 
   return (
     <>
-      <div className="card">
-        {}
+      {ipInfo && <GoogleMap width={ipInfo.loc.split(',')[0]} length={ipInfo.loc.split(',')[1]} />}
+      <div className="ip-info-container">
         {ipInfo ? (
           <>
-            <h1>IP Address: {ipInfo.ip}</h1>
-            <p>Hostname: {ipInfo.hostname}</p>
-            <p>City: {ipInfo.city}</p>
-            <p>Region: {ipInfo.region}</p>
-            <p>Country: {ipInfo.country}</p>
-            <p>Geographical Coordinates: {ipInfo.loc}</p>
-            <p>Organization: {ipInfo.org}</p>
-            <p>Postal Code: {ipInfo.postal}</p>
-            <p>Timezone: {ipInfo.timezone}</p>
+            <div className="ip-info-card">
+              <p>IP Address: {ipInfo.ip}</p>
+            </div>
+            <div className="ip-info-card">
+              <p>City: {ipInfo.city}</p>
+            </div>
+            <div className="ip-info-card">
+              <p>Region: {ipInfo.region}</p>
+            </div>
+            <div className="ip-info-card">
+              <p>Country: {ipInfo.country}</p>
+            </div>
           </>
         ) : (
-          <p>Loading IP information...</p>
+          <h1>Loading IP information...</h1>
         )}
-      </div>
-      <div>
-        {}
-        {ipInfo && <GoogleMap width={ipInfo.loc.split(',')[0]} length={ipInfo.loc.split(',')[1]} />}
       </div>
     </>
   );
